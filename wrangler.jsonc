@@ -1,37 +1,16 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "imports",
+  "name": "bandari-website",
   "main": ".open-next/worker.js",
-  "compatibility_date": "2025-10-01",
-  "compatibility_flags": [
-    "nodejs_compat",
-    "nodejs_compat_populate_process_env",
-    "global_fetch_strictly_public"
-  ],
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "workers_dev": true,
   "preview_urls": true,
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS"
   },
-  "services": [
-    {
-      "binding": "WORKER_SELF_REFERENCE",
-      "service": "imports"
-    }
-  ],
   "observability": {
     "enabled": true
-  },
-  "vars": {
-    "NODE_ENV": "production"
   }
-{
-  // ...
-  "vars": {
-    "DATABASE_URL": "postgresql://neondb_owner:npg_0XWoO7mcLpYt@ep-lingering-dawn-ar0aup0h-pooler.c-4.us-west-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require",
-    "NODE_ENV": "production"
-  },
-  // ...
-}
 }
