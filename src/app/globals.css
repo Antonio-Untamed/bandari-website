@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #10241d;
+  --color-forest: #0f3a2c;
+  --color-moss: #1c5c46;
+  --color-fern: #2f7a5e;
+  --color-sage: #dfe9e2;
+  --color-sand: #f2ecdf;
+  --color-cream: #fbf8f1;
+  --color-clay: #b76338;
+  --color-clay-soft: #f5e2d5;
+  --color-line: #e3dbca;
+  --font-display: Georgia, "Times New Roman", "Iowan Old Style", serif;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-cream);
+    color: var(--color-ink);
+  }
+
+  ::selection {
+    background: #d7e6dc;
+    color: #0b2a20;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+
+  .display {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    line-height: 1.04;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-moss;
+  }
+
+  .btn {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .btn-primary {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full bg-forest px-5 py-3 text-sm font-semibold text-cream transition-colors duration-200 hover:bg-moss disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .btn-clay {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full bg-clay px-5 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-[#a1542c] disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .btn-outline {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full border border-forest/25 bg-transparent px-5 py-3 text-sm font-semibold text-forest transition-colors duration-200 hover:border-forest/60 hover:bg-white disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .btn-cream {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full bg-cream px-5 py-3 text-sm font-semibold text-forest transition-colors duration-200 hover:bg-white disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .field {
+    @apply w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-sm text-ink outline-none transition placeholder:text-ink/35 focus:border-moss focus:ring-2 focus:ring-moss/15;
+  }
+
+  .label {
+    @apply mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-ink/55;
+  }
+
+  .card {
+    @apply rounded-2xl border border-line bg-white;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-line bg-white/70 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.12em] text-ink/65;
+  }
+
+  .rule {
+    @apply h-px w-full bg-line;
+  }
+
+  .prose-lede {
+    @apply text-[15px] leading-relaxed text-ink/70;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 34s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+}
+
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.16) 0.5px, transparent 0.5px);
+  background-size: 4px 4px;
+}

@@ -1,0 +1,50 @@
+/**
+ * Cloudflare Workers deployment for Bandari Auto Imports.
+ *
+ * IMPORTANT: this app is a Next.js server (SSR + API routes + PostgreSQL).
+ * Cloudflare's drag-and-drop "Upload and deploy" box only accepts pre-built
+ * static files, which is why it says it "does not yet support projects that
+ * require a build process". Use `wrangler deploy` (via Workers Builds or the
+ * CLI) with the OpenNext adapter instead.
+ *
+ * Commands (from the project root, after copying this file to ./wrangler.jsonc):
+ *   npm install -D @opennextjs/cloudflare wrangler
+ *   npx opennextjs-cloudflare build
+ *   npx wrangler deploy
+ *
+ * First create a Cloudflare Postgres pool so Workers can reach your database:
+ *   npx wrangler hyperdrive create bandari-db \
+ *     --connection-string="postgres://user:pass@host:5432/db?sslmode=require"
+ * then paste the returned id below.
+ */
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "bandari-auto-imports",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2025-10-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "observability": {
+    "enabled": true
+  },
+
+  // Uncomment and set the id from `wrangler hyperdrive create`.
+  // "hyperdrive": [
+  //   {
+  //     "binding": "HYPERDRIVE",
+  //     "id": "<your-hyperdrive-id>"
+  //   }
+  // ],
+
+  "vars": {
+    "NODE_ENV": "production"
+  }
+
+  // Secrets (never commit these):
+  //   npx wrangler secret put DATABASE_URL
+  //   npx wrangler secret put ADMIN_PASSCODE
+  //   npx wrangler secret put ADMIN_SECRET
+}
