@@ -14,7 +14,7 @@ In the Worker → **Settings → Build** set:
 | **Deploy command** | `npx wrangler deploy` |
 | Root directory | `/` |
 
-If the dashboard has **no Build command** (Initializing → Cloning → Installing → Deploying, with no Building step), put **everything** in Deploy command instead:
+If the dashboard has **no Build command** (Initializing → Cloning → Installing → Deploying, with no Building step), put **everything** in Deploy command instead: 
 
 ```
 npm ci && node scripts/build.mjs --cloudflare && npx wrangler deploy
