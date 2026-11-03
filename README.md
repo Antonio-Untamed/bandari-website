@@ -130,7 +130,7 @@ in the admin form.
 ## Local development
 
 ```bash
-cp .env.example .env          # set DATABASE_URL and ADMIN_PASSCODE
+cp .env.example .env           # set DATABASE_URL and ADMIN_PASSCODE
 npm install
 npm run dev                   # http://localhost:3000
 ```
