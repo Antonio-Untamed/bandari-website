@@ -244,17 +244,7 @@ async function seedData() {
 
 let bootstrapPromise: Promise<void> | null = null;
 
-async function run() {
-  await createTables();
-  await db.execute(sql`select pg_advisory_lock(4930221)`);
-  try {
-    await seedData();
-  } finally {
-    await db.execute(sql`select pg_advisory_unlock(4930221)`);
-  }
-}
-
-export function ensureDb() {
+async function run() {   await createTables();   await seedData(); }  export function ensureDb() {
   if (!bootstrapPromise) {
     bootstrapPromise = run().catch((error) => {
       bootstrapPromise = null;
