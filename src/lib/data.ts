@@ -18,6 +18,7 @@ import {
 export type VehicleFilters = {
   q?: string;
   make?: string;
+  model?: string;
   body?: string;
   fuel?: string;
   origin?: string;
@@ -42,6 +43,7 @@ export async function getVehicles(filters: VehicleFilters = {}): Promise<Vehicle
     );
   }
   if (filters.make && filters.make !== "all") conditions.push(eq(vehicles.make, filters.make));
+  if (filters.model && filters.model !== "all") conditions.push(eq(vehicles.model, filters.model));
   if (filters.body && filters.body !== "all") conditions.push(eq(vehicles.bodyType, filters.body));
   if (filters.fuel && filters.fuel !== "all") conditions.push(eq(vehicles.fuel, filters.fuel));
   if (filters.origin && filters.origin !== "all") {
