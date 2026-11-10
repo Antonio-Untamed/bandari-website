@@ -177,7 +177,7 @@ export default async function HomePage() {
             <div className="overflow-hidden rounded-[26px] border border-line bg-sand">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/images/hero-coastal.jpg"
+                src="https://images.pexels.com/photos/2217513/pexels-photo-2217513.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=700&w=1000"
                 alt="Imported SUV on a Kenyan coastal road at golden hour"
                 className="h-[420px] w-full object-cover sm:h-[500px]"
               />
