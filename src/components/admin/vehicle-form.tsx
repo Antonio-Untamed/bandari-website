@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { Vehicle } from "@/db/schema";
 import { computeKraDuty } from "@/lib/crsp";
 import { kes, usd } from "@/lib/format";
+import { VEHICLE_CATALOG, displayMakeName, modelsForMake } from "@/lib/vehicle-catalog";
 
 const BODY_TYPES = ["SUV", "Pickup", "Sedan", "Hatchback", "Van", "Bus", "Truck"];
 const FUELS = ["Petrol", "Diesel", "Hybrid", "Electric"];
@@ -89,6 +90,13 @@ export function VehicleForm({
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
 
+  const makeOptions = Array.from(
+    new Set([...Object.keys(VEHICLE_CATALOG).map(displayMakeName), form.make].filter(Boolean)),
+  ).sort((a, b) => a.localeCompare(b));
+  const modelOptions = Array.from(
+    new Set([...modelsForMake(form.make), form.model].filter(Boolean)),
+  ).sort((a, b) => a.localeCompare(b));
+
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((current) => ({ ...current, [key]: value }));
   }
@@ -168,11 +176,31 @@ export function VehicleForm({
       <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         <div>
           <label className="label">Make *</label>
-          <input className="field" required value={form.make} onChange={(e) => update("make", e.target.value)} placeholder="Toyota" />
+          <input
+            className="field"
+            list="admin-vehicle-makes"
+            required
+            value={form.make}
+            onChange={(e) => update("make", e.target.value)}
+            placeholder="Toyota"
+          />
+          <datalist id="admin-vehicle-makes">
+            {makeOptions.map((make) => <option key={make} value={make} />)}
+          </datalist>
         </div>
         <div>
           <label className="label">Model *</label>
-          <input className="field" required value={form.model} onChange={(e) => update("model", e.target.value)} placeholder="Land Cruiser Prado TX-L" />
+          <input
+            className="field"
+            list="admin-vehicle-models"
+            required
+            value={form.model}
+            onChange={(e) => update("model", e.target.value)}
+            placeholder="Land Cruiser Prado TX-L"
+          />
+          <datalist id="admin-vehicle-models">
+            {modelOptions.map((model) => <option key={model} value={model} />)}
+          </datalist>
         </div>
         <div>
           <label className="label">Trim</label>
