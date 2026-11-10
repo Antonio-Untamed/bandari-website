@@ -28,7 +28,7 @@ export default async function VehiclesPage({ searchParams }: { searchParams: Sea
   const params = await searchParams;
   const filters = {
     q: pick(params.q),
-    make: pick(params.make),
+    make: pick(params.make), model: pick(params.model),
     body: pick(params.body),
     fuel: pick(params.fuel),
     origin: pick(params.origin),
@@ -37,9 +37,9 @@ export default async function VehiclesPage({ searchParams }: { searchParams: Sea
   };
 
   const [vehicles, all] = await Promise.all([getVehicles(filters), getAllVehicles()]);
-  const makes = Array.from(new Set(all.map((vehicle) => vehicle.make))).sort();
+  const makes = Array.from(new Set(all.map((vehicle) => vehicle.make))).sort(); const models = Array.from(new Set(all.map((vehicle) => vehicle.model))).sort();
   const origins = Array.from(new Set(all.map((vehicle) => vehicle.originCountry))).sort();
-  const activeCount = [filters.q, filters.make !== "all" ? filters.make : "", filters.body !== "all" ? filters.body : "", filters.fuel !== "all" ? filters.fuel : "", filters.origin !== "all" ? filters.origin : "", filters.maxPrice].filter(Boolean).length;
+  const activeCount = [filters.q, filters.make !== "all" ? filters.make : "", filters.model !== "all" ? filters.model : "", filters.body !== "all" ? filters.body : "", filters.fuel !== "all" ? filters.fuel : "", filters.origin !== "all" ? filters.origin : "", filters.maxPrice].filter(Boolean).length;
 
   return (
     <>
@@ -50,7 +50,7 @@ export default async function VehiclesPage({ searchParams }: { searchParams: Sea
             <div>
               <h1 className="display text-[36px] text-forest sm:text-[46px]">Find your unit</h1>
               <p className="mt-3 max-w-2xl text-[14px] leading-relaxed text-ink/65">
-                {all.length} inspected vehicles across {origins.length} markets. Filter by budget,
+                {all.length} inspected vehicles across {origins.length} markets. Filter by make, model and budget,
                 body or origin — landed costs include duty, clearing and NTSA registration.
               </p>
             </div>
@@ -100,7 +100,7 @@ export default async function VehiclesPage({ searchParams }: { searchParams: Sea
                   {makes.map((make) => (
                     <option key={make} value={make}>{make}</option>
                   ))}
-                </select>
+                </select><label className="label mt-3" htmlFor="filter-model">Model</label><select id="filter-model" name="model" defaultValue={filters.model || "all"} className="field"><option value="all">All models</option>{models.map((model) => <option key={model} value={model}>{model}</option>)}</select>
               </div>
 
               <div>
